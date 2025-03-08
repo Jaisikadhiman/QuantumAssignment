@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 const saltRounds = 10;
-const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 
 const create = async (req, resp) => {
@@ -43,45 +42,45 @@ const getUser = async (req, resp) => {
   }
 };
 
-
 const login = async (req, res) => {
-    try {
-      const { email, password } = req.body;
-  
-      // Validate email and password
-      if (!email || !password) {
-        return res.status(400).json({ message: "Email and password are required" });
-      }
-  
-      // Check if user exists
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(400).json({ message: "Invalid email or password" });
-      }
-  
-      // Validate password
-      const validPassword = await bcrypt.compare(password, user.password);
-      if (!validPassword) {
-        return res.status(400).json({ message: "Invalid email or password" });
-      }
-  
-      // Generate JWT Token
-      const token = jwt.sign({ id: user._id, email: user.email }, process.env.SECRET_KEY, {
-        expiresIn: "1h",
-      });
-  
-      return res.status(200).json({
-        message: "Login successful",
-        success: true,
-        status:200,
-        token,
-        user: { id: user._id, name: user.name, email: user.email },
-      });
-    } catch (error) {
-      console.error("Login Error:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-  };
-  
+  try {
+    const { email, password } = req.body;
 
-module.exports = { create, getUser ,login};
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Email and password are required" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    return res.status(200).json({
+      message: "Login successful",
+      success: true,
+      status: 200,
+      token,
+      user: { id: user._id, name: user.name, email: user.email },
+    });
+  } catch (error) {
+    console.error("Login Error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+module.exports = { create, getUser, login };
