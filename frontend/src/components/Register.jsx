@@ -4,6 +4,10 @@ import { useFormik } from "formik";
 import "./register.css";
 import { useDispatch } from "react-redux";
 import { adduser } from "../slice/userSlice";
+import { FaUser } from "react-icons/fa";
+import { MdAlternateEmail } from "react-icons/md";
+import { TbLockPassword } from "react-icons/tb";
+import { CiCalendarDate } from "react-icons/ci";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -45,10 +49,15 @@ const Register = () => {
             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
               <div className="card" style={{ borderRadius: "15px" }}>
                 <div className="card-body p-5">
-                  <h2 className="text-uppercase text-center mb-2">Register Here</h2>
+                  <h2 className="text-uppercase text-center mb-2">
+                    Register Here
+                  </h2>
 
                   <form onSubmit={formik.handleSubmit}>
-                    <div className="form-outline mb-2">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">
+                        <FaUser />
+                      </span>
                       <input
                         type="name"
                         name="name"
@@ -56,13 +65,22 @@ const Register = () => {
                         value={formik.values.name}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        placeholder="Username"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
                       />
+                    </div>
+
+                    <div className="form-outline mb-2">
                       <label className="form-label">Your Name</label>
                       {formik.touched.name && formik.errors.name && (
                         <div className="text-danger">{formik.errors.name}</div>
                       )}
                     </div>
-                    <div className="form-outline mb-2">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">
+                        <MdAlternateEmail />
+                      </span>
                       <input
                         type="email"
                         name="email"
@@ -70,14 +88,21 @@ const Register = () => {
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        placeholder="Email"
+                        aria-label="Email"
+                        aria-describedby="basic-addon1"
                       />
+                    </div>
+                    <div className="form-outline mb-2">
                       <label className="form-label">Your Email</label>
                       {formik.touched.email && formik.errors.email && (
                         <div className="text-danger">{formik.errors.email}</div>
                       )}
                     </div>
-
-                    <div className="form-outline mb-2">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">
+                        <TbLockPassword />
+                      </span>
                       <input
                         type="password"
                         name="password"
@@ -85,7 +110,12 @@ const Register = () => {
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        placeholder="Password"
+                        aria-label="Password"
+                        aria-describedby="basic-addon1"
                       />
+                    </div>
+                    <div className="form-outline mb-2">
                       <label className="form-label">Password</label>
                       {formik.touched.password && formik.errors.password && (
                         <div className="text-danger">
@@ -93,7 +123,11 @@ const Register = () => {
                         </div>
                       )}
                     </div>
-                    <div className="form-outline mb-2">
+
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">
+                        <CiCalendarDate />
+                      </span>
                       <input
                         type="date"
                         name="dob"
@@ -101,7 +135,12 @@ const Register = () => {
                         value={formik.values.dob}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        placeholder="Dob"
+                        aria-label="Dob"
+                        aria-describedby="basic-addon1"
                       />
+                    </div>
+                    <div className="form-outline mb-2">
                       <label className="form-label">Your dob</label>
                       {formik.touched.dob && formik.errors.dob && (
                         <div className="text-danger">{formik.errors.dob}</div>
